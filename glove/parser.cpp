@@ -8,7 +8,7 @@ Packet parse(uint8_t packet) {
 }
 
 FingerIndex finger2idx(Finger finger) {
-  int value;
+  FingerIndex value;
 
   switch (finger) {
   case Finger::LThumb:
@@ -45,4 +45,9 @@ FingerIndex finger2idx(Finger finger) {
     break;
   }
   return value;
+}
+
+Time millis2time(unsigned long time) {
+  auto value = (unsigned int) time/100;
+  return Time {value};
 }

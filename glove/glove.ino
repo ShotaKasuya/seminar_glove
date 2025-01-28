@@ -1,5 +1,20 @@
 #include "parser.h"
 
+void update(Time dt);
+void process_input(uint8_t input);
+
+typedef struct {
+  bool task_enabled;
+  Time remain_length;
+} Task;
+
+const int FINGER_NUM = 10;
+Task tasks[FINGER_NUM] = {{false, Time{0}}, {false, Time{0}}, {false, Time{0}},
+                          {false, Time{0}}, {false, Time{0}}, {false, Time{0}},
+                          {false, Time{0}}, {false, Time{0}}, {false, Time{0}},
+                          {false, Time{0}}};
+
+
 void setup() {
   Serial.begin(9600);
   Serial.println("Hello Arduino!");
@@ -19,8 +34,8 @@ void loop() {
   auto dt = time - prev_update_time;
   prev_update_time = time;
 
-  if (dt < UPDATE_DELTA_TIME) {
-    delay(UPDATE_DELTA_TIME - dt);
+  if (dt.time < UPDATE_DELTA_TIME) {
+    delay(UPDATE_DELTA_TIME - dt.time);
   } else {
     Serial.println("update use over UPDATE_DELTA_TIME");
   }
@@ -32,17 +47,6 @@ void loop() {
   }
   update(dt);
 }
-
-typedef struct {
-  bool task_enabled;
-  Time remain_length;
-} Task;
-
-const int FINGER_NUM = 10;
-Task[FINGER_NUM] tasks = {{false, Time{0}}, {false, Time{0}}, {false, Time{0}},
-                          {false, Time{0}}, {false, Time{0}}, {false, Time{0}},
-                          {false, Time{0}}, {false, Time{0}}, {false, Time{0}},
-                          {false, Time{0}};
 
 void update(Time dt) {
   for (int i = 0; i < FINGER_NUM; i++) {

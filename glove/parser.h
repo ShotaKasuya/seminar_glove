@@ -36,7 +36,7 @@ typedef struct {
   unsigned int time;
 } Packet;
 
-typedef struct {
+typedef struct Time {
   unsigned int time;
 
   Time operator-(const Time &other) const {
