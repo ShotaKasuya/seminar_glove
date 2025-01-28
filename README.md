@@ -18,13 +18,23 @@
 
 ## パケット構造
 
+* hand
+  * 0: 左
+  * 1: 右
+* finger
+  * 0b001: 親指
+  * 0b010: 人差し指
+  * 0b011: 中指
+  * 0b100: 薬指
+  * 0b101: 小指
+
 ```mermaid
 packet-beta
 title パケット構造
 
 0: "hand"
-1-5: "finger"
-6-15: "time (1/10 sec)
+1-3: "finger"
+4-7: "time (1/10 sec)
 ```
 
 
