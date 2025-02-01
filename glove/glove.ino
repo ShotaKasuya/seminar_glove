@@ -32,13 +32,13 @@ void loop() {
   static Time prev_update_time = Time{0};
   auto time = millis2time(millis());
   auto dt = time - prev_update_time;
-  prev_update_time = time;
 
   if (dt.time < UPDATE_DELTA_TIME) {
     delay(UPDATE_DELTA_TIME - dt.time);
   } else {
     Serial.println("update use over UPDATE_DELTA_TIME");
   }
+  prev_update_time = millis2time(millis());
 
   if (Serial.available()) {
     uint8_t input;
@@ -66,5 +66,7 @@ void process_input(uint8_t input) {
   FingerIndex idx = finger2idx(packet.finger);
   auto length = Time{packet.time};
   tasks[(int)idx] = Task{true, length};
+  Serial.println(packet.to_string());
+  
   digitalWrite((int)idx, HIGH);
 }

@@ -16,6 +16,7 @@ enum class Finger {
   RRing = 0b1100,
   RLittle = 0b1101,
 };
+String finger_to_string(Finger finger);
 
 enum class FingerIndex {
   LThumb,
@@ -34,6 +35,9 @@ enum class FingerIndex {
 typedef struct {
   Finger finger;
   unsigned int time;
+  String to_string() const {
+        return "Packet{finger: " + finger_to_string(finger) + ", time: " + String(time) + "}";
+    }
 } Packet;
 
 typedef struct Time {

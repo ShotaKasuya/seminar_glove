@@ -46,7 +46,22 @@ FingerIndex finger2idx(Finger finger) {
   }
   return value;
 }
-
+// Finger を文字列に変換する関数
+String finger_to_string(Finger finger) {
+    switch (finger) {
+        case Finger::LThumb:  return "LThumb";
+        case Finger::LIndex:  return "LIndex";
+        case Finger::LMiddle: return "LMiddle";
+        case Finger::LRing:   return "LRing";
+        case Finger::LLittle: return "LLittle";
+        case Finger::RThumb:  return "RThumb";
+        case Finger::RIndex:  return "RIndex";
+        case Finger::RMiddle: return "RMiddle";
+        case Finger::RRing:   return "RRing";
+        case Finger::RLittle: return "RLittle";
+        default:              return "Unknown";
+    }
+}
 Time millis2time(unsigned long time) {
   auto value = (unsigned int) time/100;
   return Time {value};
