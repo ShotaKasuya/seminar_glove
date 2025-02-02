@@ -32,13 +32,13 @@ void loop() {
   static Time prev_update_time = Time{0};
   auto time = millis2time(millis());
   auto dt = time - prev_update_time;
+  prev_update_time = time;
 
   if (dt.time < UPDATE_DELTA_TIME) {
     delay(UPDATE_DELTA_TIME - dt.time);
   } else {
     Serial.println("update use over UPDATE_DELTA_TIME");
   }
-  prev_update_time = millis2time(millis());
 
   if (Serial.available()) {
     uint8_t input;
@@ -52,8 +52,19 @@ void update(Time dt) {
   for (int i = 0; i < FINGER_NUM; i++) {
     Task &task = tasks[i];
     if (task.task_enabled) {
+      Serial.print("dec task");
+      Serial.print(i);
+      Serial.print(", remain: ");
+      Serial.print(task.remain_length.time);
       auto rem = task.remain_length - dt;
+      Serial.print(", to: ");
+      Serial.print(rem.time);
+      task.remain_length = rem;
+      Serial.println("");
       if (rem.time == 0) {
+        Serial.print("on task end: ");
+        Serial.print(i);
+        Serial.println("");
         task.task_enabled = false;
         digitalWrite(i, LOW);
       }
